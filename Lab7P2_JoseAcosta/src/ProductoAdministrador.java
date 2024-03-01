@@ -44,24 +44,25 @@ public class ProductoAdministrador {
         return "ProductoAdministrador{" + "m=" + m + ", archivo=" + archivo + '}';
     }
     
-    public void setPdocuto(Producto m) {
+    public void setProducto(Producto m) {
         this.m.add(m);
     }
     
   
-      public void escribirArchivo() throws IOException {
+      public void escribirArchivo(String file) throws IOException {
+        archivo = new File("./"+file+".txt");
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
             fw = new FileWriter(archivo, false);
             bw = new BufferedWriter(fw);
-            for (Producto t : m) {
+            for (Producto t : m) { 
                 bw.write(t.getId() + ",");
                 bw.write(t.getName() + ",");
                 bw.write(t.getBin() + ",");
-                 bw.write(t.getAisle() + ",");
-                  bw.write(t.getPrice() + ",");
-                  bw.write(t.getCategory() + ",");
+                bw.write(t.getAisle() + ",");
+                bw.write(t.getPrice() + ",");
+                bw.write(t.getCategory() + ",");
                   
             }
             bw.flush();

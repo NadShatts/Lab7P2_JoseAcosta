@@ -1,7 +1,16 @@
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -9,7 +18,6 @@ import javax.swing.tree.DefaultTreeModel;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author josed
@@ -21,7 +29,7 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
      */
     public Lab7P2_JoseAcosta() {
         initComponents();
-        
+
     }
 
     /**
@@ -53,6 +61,9 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        LoadFile = new javax.swing.JMenu();
+        RefreshTrees = new javax.swing.JMenu();
         enter = new javax.swing.JButton();
         informacion = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -208,6 +219,12 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
+        LoadFile.setText("Load File");
+        jPopupMenu1.add(LoadFile);
+
+        RefreshTrees.setText("Refresh Trees");
+        jPopupMenu1.add(RefreshTrees);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         enter.setText("Enter");
@@ -232,8 +249,18 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
         jScrollPane3.setViewportView(tabla);
 
         jMenu1.setText("File");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
 
         jMenuItem1.setText("New File");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuItem2.setText("Import File");
@@ -310,9 +337,8 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(32, 32, 32)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,7 +353,7 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
                         .addComponent(jScrollPane2)
                         .addGap(18, 18, 18))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
 
@@ -339,41 +365,90 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-    
+
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-  
+
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-mostrarEstructura();
+        mostrarEstructura();
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-mostrarComandos();
+        mostrarComandos();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
-    public void crearArchivo(){
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        try {
+            crearArchivo();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    public void crearArchivo() throws IOException {      
         ProductoAdministrador p = new ProductoAdministrador();
-        p.cargarArchivo();
+        for (int i = 0; i < tabla.getRowCount(); i++) {
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+            if(tabla.getValueAt(i, 0) == null || tabla.getValueAt(i, 1) == null || tabla.getValueAt(i, 2) == null || tabla.getValueAt(i, 3)== null || tabla.getValueAt(i, 4)==null || tabla.getValueAt(i, 5)== null) {       
+               
+            }else{
+            int e;
+            String n;
+            int c;
+            double pp;
+            int a;
+            int b;
+            e = Integer.parseInt(modelo.getValueAt(i, 0).toString()) ;
+            n = (String) modelo.getValueAt(i, 1);
+            c = Integer.parseInt((String)modelo.getValueAt(i, 1)) ;
+            pp = Double.parseDouble((String) modelo.getValueAt(i, 2)) ;
+            a = Integer.parseInt((String)modelo.getValueAt(i, 3)) ;
+            b = Integer.parseInt((String)modelo.getValueAt(i, 4)) ;
+            Producto d = new Producto(e, n, c, pp, a, b);
+            p.getM().add(d);
+            }
+        }
+            String nombre = JOptionPane.showInputDialog("Ingrese el nombre del Archivo: ");
+             p.escribirArchivo(nombre);
+
         
+        
+       
     }
     
-    public void mostrarEstructura(){
+     public void Importar(){    
+         ProductoAdministrador p = new ProductoAdministrador();
+         p.cargarArchivo();
+       
+         DefaultTableModel tf = new DefaultTableModel();
+         Object[] object;
+         
+         
+         
+         
+       
+        }
+
+    public void mostrarEstructura() {
         ProductStructure.setVisible(true);
         ProductStructure.pack();
         ProductStructure.setLocationRelativeTo(null);
-        
-    } 
-    
-    public void mostrarComandos(){
+    }
+
+    public void mostrarComandos() {
         Commands.setVisible(true);
         Commands.pack();
         Commands.setLocationRelativeTo(null);
-        
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -411,7 +486,9 @@ mostrarComandos();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog Commands;
+    private javax.swing.JMenu LoadFile;
     private javax.swing.JDialog ProductStructure;
+    private javax.swing.JMenu RefreshTrees;
     private javax.swing.JTree arbol;
     private javax.swing.JButton enter;
     private javax.swing.JTextField informacion;
@@ -444,6 +521,7 @@ mostrarComandos();
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JMenuItem limpiarTabla;
