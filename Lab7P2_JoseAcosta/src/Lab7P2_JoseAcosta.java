@@ -229,6 +229,12 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
 
         enter.setText("Enter");
 
+        informacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                informacionActionPerformed(evt);
+            }
+        });
+
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("CSvs");
         arbol.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         arbol.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -240,6 +246,15 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -399,52 +414,54 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void arbolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_arbolMouseClicked
-    jPopupMenu1.show(this, getY(), getX());
+        if (evt.isMetaDown()) {
+            jPopupMenu1.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
     }//GEN-LAST:event_arbolMouseClicked
 
-    public void crearArchivo() throws IOException {      
+    private void informacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_informacionActionPerformed
+        
+        
+    }//GEN-LAST:event_informacionActionPerformed
+
+    
+
+    public void crearArchivo() throws IOException {
         ProductoAdministrador p = new ProductoAdministrador();
         for (int i = 0; i < tabla.getRowCount(); i++) {
             DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-            if(tabla.getValueAt(i, 0) == null || tabla.getValueAt(i, 1) == null || tabla.getValueAt(i, 2) == null || tabla.getValueAt(i, 3)== null || tabla.getValueAt(i, 4)==null || tabla.getValueAt(i, 5)== null) {       
-               
-            }else{
-            int e;
-            String n;
-            int c;
-            double pp;
-            int a;
-            int b;
-            e = Integer.parseInt(modelo.getValueAt(i, 0).toString()) ;
-            n = (String) modelo.getValueAt(i, 1);
-            c = Integer.parseInt((String)modelo.getValueAt(i, 1)) ;
-            pp = Double.parseDouble((String) modelo.getValueAt(i, 2)) ;
-            a = Integer.parseInt((String)modelo.getValueAt(i, 3)) ;
-            b = Integer.parseInt((String)modelo.getValueAt(i, 4)) ;
-            Producto d = new Producto(e, n, c, pp, a, b);
-            p.getM().add(d);
+            if (tabla.getValueAt(i, 0) == null || tabla.getValueAt(i, 1) == null || tabla.getValueAt(i, 2) == null || tabla.getValueAt(i, 3) == null || tabla.getValueAt(i, 4) == null || tabla.getValueAt(i, 5) == null) {
+
+            } else {
+                int e;
+                String n;
+                int c;
+                double pp;
+                int a;
+                int b;
+                e = Integer.parseInt(modelo.getValueAt(i, 0).toString());
+                n = (String) modelo.getValueAt(i, 1);
+                c = Integer.parseInt((String) modelo.getValueAt(i, 1));
+                pp = Double.parseDouble((String) modelo.getValueAt(i, 2));
+                a = Integer.parseInt((String) modelo.getValueAt(i, 3));
+                b = Integer.parseInt((String) modelo.getValueAt(i, 4));
+                Producto d = new Producto(e, n, c, pp, a, b);
+                p.getM().add(d);
             }
         }
-            String nombre = JOptionPane.showInputDialog("Ingrese el nombre del Archivo: ");
-             p.escribirArchivo(nombre);
+        String nombre = JOptionPane.showInputDialog("Ingrese el nombre del Archivo: ");
+        p.escribirArchivo(nombre);
 
-        
-        
-       
     }
-    
-     public void Importar(){    
-         ProductoAdministrador p = new ProductoAdministrador();
-         p.cargarArchivo();
-       
-         DefaultTableModel tf = new DefaultTableModel();
-         Object[] object;
-         
-         
-         
-         
-       
-        }
+
+    public void Importar() {
+        ProductoAdministrador p = new ProductoAdministrador();
+        p.cargarArchivo();
+
+        DefaultTableModel tf = new DefaultTableModel();
+        Object[] object;
+
+    }
 
     public void mostrarEstructura() {
         ProductStructure.setVisible(true);
