@@ -220,6 +220,11 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
         );
 
         LoadFile.setText("Load File");
+        LoadFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoadFileActionPerformed(evt);
+            }
+        });
         jPopupMenu1.add(LoadFile);
 
         RefreshTrees.setText("Refresh Trees");
@@ -424,7 +429,11 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
         
     }//GEN-LAST:event_informacionActionPerformed
 
-    
+    private void LoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadFileActionPerformed
+        
+        DefaultTreeModel m= (DefaultTreeModel) arbol.getModel();
+      
+    }//GEN-LAST:event_LoadFileActionPerformed
 
     public void crearArchivo() throws IOException {
         ProductoAdministrador p = new ProductoAdministrador();
@@ -451,7 +460,6 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
         }
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre del Archivo: ");
         p.escribirArchivo(nombre);
-
     }
 
     public void Importar() {
@@ -462,6 +470,36 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
         Object[] object;
 
     }
+    
+     public void listar_todo(File p_raiz, DefaultMutableTreeNode nodo){  
+    try{
+        ArrayList<File> l1=new ArrayList();
+        ArrayList<File> l2=new ArrayList();
+        ArrayList<File> l3=new ArrayList();
+        for (File f : p_raiz.listFiles()) {
+            if (f.isDirectory()) {
+                l1.add(f);
+            }else{
+                l2.add(f);
+            }
+        }
+       l3.addAll(l1);
+       l3.addAll(l2);   
+        for(File temp:l3){
+            if( temp.isFile() ){                
+                DefaultMutableTreeNode n=new DefaultMutableTreeNode(temp.getName());
+                nodo.add(n);      
+            }else{
+                DefaultMutableTreeNode n=new DefaultMutableTreeNode(temp.getName());
+                nodo.add(n);  
+                listar_todo(temp,n);
+            }
+        } 
+    }
+    catch(Exception e){    
+        e.printStackTrace();
+    }
+     }
 
     public void mostrarEstructura() {
         ProductStructure.setVisible(true);
