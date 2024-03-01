@@ -231,6 +231,11 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("CSvs");
         arbol.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        arbol.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                arbolMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(arbol);
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -392,6 +397,10 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void arbolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_arbolMouseClicked
+    jPopupMenu1.show(this, getY(), getX());
+    }//GEN-LAST:event_arbolMouseClicked
 
     public void crearArchivo() throws IOException {      
         ProductoAdministrador p = new ProductoAdministrador();
