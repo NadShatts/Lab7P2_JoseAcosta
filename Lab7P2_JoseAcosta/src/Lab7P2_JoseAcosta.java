@@ -396,8 +396,8 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-      ProductoAdministrador p = new ProductoAdministrador();
-       
+        ProductoAdministrador p = new ProductoAdministrador();
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -436,8 +436,8 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
     }//GEN-LAST:event_arbolMouseClicked
 
     private void informacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_informacionActionPerformed
-        
-        
+
+
     }//GEN-LAST:event_informacionActionPerformed
 
     private void LoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadFileActionPerformed
@@ -450,36 +450,36 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
         xd = xd.replace("[", "]");
         xd = xd.replace("]", "");
         System.out.println(xd);
-xd = xd.replace(",", ",");
-xd = xd.replace(",", ",");
+        xd = xd.replace(",", ",");
+        xd = xd.replace(",", ",");
         System.out.println(xd);
-        try{
-            file = new File("./"+xd);
-            if(file.exists()){
+        try {
+            file = new File("./" + xd);
+            if (file.exists()) {
                 fr = new FileReader(file);
                 bf = new BufferedReader(fr);
-                        String codigo = "";
-                        DefaultTableModel = (DefaultTableModel) lista.getModel();
-            } 
-                        }catch(Exception e){
-            e.printStackTrace();
+                String codigo = "";
+                DefaultTableModel tabla = (DefaultTableModel) tabla.getModel();
+                tabla.setRowCount(0);
             }
-        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-      
+
     }//GEN-LAST:event_LoadFileActionPerformed
 
     private void informacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_informacionMouseClicked
-       
-       
+
+
     }//GEN-LAST:event_informacionMouseClicked
 
     private void limpiarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarTablaActionPerformed
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-       modelo.setRowCount(0);
-       tabla.setModel(modelo);
-       modelo.setRowCount(10);
-       tabla.setModel(modelo);
+        modelo.setRowCount(0);
+        tabla.setModel(modelo);
+        modelo.setRowCount(10);
+        tabla.setModel(modelo);
     }//GEN-LAST:event_limpiarTablaActionPerformed
 
     public void crearArchivo() throws IOException {
@@ -508,7 +508,7 @@ xd = xd.replace(",", ",");
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre del Archivo: ");
         p.escribirArchivo(nombre);
         JOptionPane.showMessageDialog(this, "Creado exitosamente");
-        
+
     }
 
     public void Importar() {
@@ -519,36 +519,35 @@ xd = xd.replace(",", ",");
         Object[] object;
 
     }
-    
-     public void listar_todo(File p_raiz, DefaultMutableTreeNode nodo){  
-    try{
-        ArrayList<File> l1=new ArrayList();
-        ArrayList<File> l2=new ArrayList();
-        ArrayList<File> l3=new ArrayList();
-        for (File f : p_raiz.listFiles()) {
-            if (f.isDirectory()) {
-                l1.add(f);
-            }else{
-                l2.add(f);
+
+    public void listar_todo(File p_raiz, DefaultMutableTreeNode nodo) {
+        try {
+            ArrayList<File> l1 = new ArrayList();
+            ArrayList<File> l2 = new ArrayList();
+            ArrayList<File> l3 = new ArrayList();
+            for (File f : p_raiz.listFiles()) {
+                if (f.isDirectory()) {
+                    l1.add(f);
+                } else {
+                    l2.add(f);
+                }
             }
+            l3.addAll(l1);
+            l3.addAll(l2);
+            for (File temp : l3) {
+                if (temp.isFile()) {
+                    DefaultMutableTreeNode n = new DefaultMutableTreeNode(temp.getName());
+                    nodo.add(n);
+                } else {
+                    DefaultMutableTreeNode n = new DefaultMutableTreeNode(temp.getName());
+                    nodo.add(n);
+                    listar_todo(temp, n);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-       l3.addAll(l1);
-       l3.addAll(l2);   
-        for(File temp:l3){
-            if( temp.isFile() ){                
-                DefaultMutableTreeNode n=new DefaultMutableTreeNode(temp.getName());
-                nodo.add(n);      
-            }else{
-                DefaultMutableTreeNode n=new DefaultMutableTreeNode(temp.getName());
-                nodo.add(n);  
-                listar_todo(temp,n);
-            }
-        } 
     }
-    catch(Exception e){    
-        e.printStackTrace();
-    }
-     }
 
     public void mostrarEstructura() {
         ProductStructure.setVisible(true);
