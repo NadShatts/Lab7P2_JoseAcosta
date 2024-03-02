@@ -91,6 +91,8 @@ public class ProductoAdministrador {
             } catch (Exception ex) {
             }
             entrada.close();
+        }else{
+            System.out.println("El archivo no existe");
         }
     }
     
