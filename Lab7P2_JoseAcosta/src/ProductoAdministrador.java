@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -89,10 +90,11 @@ public class ProductoAdministrador {
                     m.add(new Producto(entrada.nextInt(), entrada.next(), entrada.nextInt(), entrada.nextDouble(), entrada.nextInt(), entrada.nextInt()));
                 }
             } catch (Exception ex) {
+                ex.printStackTrace();
             }
             entrada.close();
         }else{
-            System.out.println("El archivo no existe");
+            System.out.println("No se encontro el archivo...");
         }
     }
     

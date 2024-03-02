@@ -270,6 +270,11 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null}
             },
             new String [] {
@@ -491,26 +496,23 @@ Importar();
     public void Importar() {
         try{
              String e;
-           e = JOptionPane.showInputDialog("Ingrese el nombre del archivo");
+           e = JOptionPane.showInputDialog("Ingrese el nombre del archivo: ");
            ProductoAdministrador p = new ProductoAdministrador(e);
            p.cargarArchivo();
            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
            modelo.setRowCount(0);
-           
-            for (int i = 0; i < p.getM().size(); i++) {
-                
+            for (int i = 0; i < p.getM().size(); i++) {            
                 Producto productos = p.getM().get(i);
                 Object[] r = new Object[6];
                 r[0] = productos.getId();
                 r[1] = productos.getName();
                 r[2] = productos.getCategory();
-                r[3] = productos.getPrice();
-                r[4] = productos.getAisle();
+                r[3] = productos.getPrice();   
+                r[4] = productos.getAisle();    
                 r[5] = productos.getBin();
-                
-                
                modelo.addRow(r);
             }
+            System.out.println(p.getM().size());
             tabla.setModel(modelo);
                     
         }catch(Exception e){
@@ -519,10 +521,9 @@ Importar();
 
     }
 
-    
-   
     public void listar_todo(File p_raiz, DefaultMutableTreeNode nodo) {
         try {
+            //me falto hacer esto :(
             ArrayList<File> l1 = new ArrayList();
             ArrayList<File> l2 = new ArrayList();
             ArrayList<File> l3 = new ArrayList();
@@ -596,6 +597,8 @@ Importar();
             }
         });
     }
+    
+    //tene compacion al revisar porfavor :((((((((((((((
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog Commands;
