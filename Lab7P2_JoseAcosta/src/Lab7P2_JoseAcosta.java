@@ -234,6 +234,11 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
 
         enter.setText("Enter");
 
+        informacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                informacionMouseClicked(evt);
+            }
+        });
         informacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 informacionActionPerformed(evt);
@@ -319,6 +324,11 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
         jMenu4.add(jMenuItem7);
 
         limpiarTabla.setText("Clear Table");
+        limpiarTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limpiarTablaActionPerformed(evt);
+            }
+        });
         jMenu4.add(limpiarTabla);
 
         jMenu2.add(jMenu4);
@@ -386,7 +396,8 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+      ProductoAdministrador p = new ProductoAdministrador();
+       
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -430,10 +441,46 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
     }//GEN-LAST:event_informacionActionPerformed
 
     private void LoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadFileActionPerformed
+
+        FileReader fr = null;
+        BufferedReader bf = null;
+        File file = null;
+        System.out.println(arbol.getSelectionPath());
+        String xd = arbol.getSelectionPath().toString();
+        xd = xd.replace("[", "]");
+        xd = xd.replace("]", "");
+        System.out.println(xd);
+xd = xd.replace(",", ",");
+xd = xd.replace(",", ",");
+        System.out.println(xd);
+        try{
+            file = new File("./"+xd);
+            if(file.exists()){
+                fr = new FileReader(file);
+                bf = new BufferedReader(fr);
+                        String codigo = "";
+                        DefaultTableModel = (DefaultTableModel) lista.getModel();
+            } 
+                        }catch(Exception e){
+            e.printStackTrace();
+            }
         
-        DefaultTreeModel m= (DefaultTreeModel) arbol.getModel();
+
       
     }//GEN-LAST:event_LoadFileActionPerformed
+
+    private void informacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_informacionMouseClicked
+       
+       
+    }//GEN-LAST:event_informacionMouseClicked
+
+    private void limpiarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarTablaActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+       modelo.setRowCount(0);
+       tabla.setModel(modelo);
+       modelo.setRowCount(10);
+       tabla.setModel(modelo);
+    }//GEN-LAST:event_limpiarTablaActionPerformed
 
     public void crearArchivo() throws IOException {
         ProductoAdministrador p = new ProductoAdministrador();
@@ -460,6 +507,8 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
         }
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre del Archivo: ");
         p.escribirArchivo(nombre);
+        JOptionPane.showMessageDialog(this, "Creado exitosamente");
+        
     }
 
     public void Importar() {
