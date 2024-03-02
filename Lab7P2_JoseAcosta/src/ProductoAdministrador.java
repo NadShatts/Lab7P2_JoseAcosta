@@ -21,6 +21,12 @@ public class ProductoAdministrador {
     private File archivo = null;
 
     public ProductoAdministrador() {
+     
+        
+    }
+    public ProductoAdministrador(String nombre) {
+        archivo = new File(nombre);
+        
     }
 
     public ArrayList<Producto> getM() {

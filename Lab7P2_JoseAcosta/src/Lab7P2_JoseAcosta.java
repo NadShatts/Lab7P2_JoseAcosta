@@ -372,8 +372,9 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                        .addGap(32, 32, 32)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -396,7 +397,7 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        ProductoAdministrador p = new ProductoAdministrador();
+        Importar();
 
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
@@ -417,7 +418,7 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
-
+Importar();
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -441,31 +442,7 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
     }//GEN-LAST:event_informacionActionPerformed
 
     private void LoadFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadFileActionPerformed
-
-        FileReader fr = null;
-        BufferedReader bf = null;
-        File file = null;
-        System.out.println(arbol.getSelectionPath());
-        String xd = arbol.getSelectionPath().toString();
-        xd = xd.replace("[", "]");
-        xd = xd.replace("]", "");
-        System.out.println(xd);
-        xd = xd.replace(",", ",");
-        xd = xd.replace(",", ",");
-        System.out.println(xd);
-        try {
-            file = new File("./" + xd);
-            if (file.exists()) {
-                fr = new FileReader(file);
-                bf = new BufferedReader(fr);
-                String codigo = "";
-                DefaultTableModel tabla = (DefaultTableModel) tabla.getModel();
-                tabla.setRowCount(0);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+Importar();        
 
     }//GEN-LAST:event_LoadFileActionPerformed
 
@@ -478,7 +455,7 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         modelo.setRowCount(0);
         tabla.setModel(modelo);
-        modelo.setRowCount(10);
+        modelo.setRowCount(20);
         tabla.setModel(modelo);
     }//GEN-LAST:event_limpiarTablaActionPerformed
 
@@ -512,14 +489,38 @@ public class Lab7P2_JoseAcosta extends javax.swing.JFrame {
     }
 
     public void Importar() {
-        ProductoAdministrador p = new ProductoAdministrador();
-        p.cargarArchivo();
-
-        DefaultTableModel tf = new DefaultTableModel();
-        Object[] object;
+        try{
+             String e;
+           e = JOptionPane.showInputDialog("Ingrese el nombre del archivo");
+           ProductoAdministrador p = new ProductoAdministrador(e);
+           p.cargarArchivo();
+           DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+           modelo.setRowCount(0);
+           
+            for (int i = 0; i < p.getM().size(); i++) {
+                
+                Producto productos = p.getM().get(i);
+                Object[] r = new Object[6];
+                r[0] = productos.getId();
+                r[1] = productos.getName();
+                r[2] = productos.getCategory();
+                r[3] = productos.getPrice();
+                r[4] = productos.getAisle();
+                r[5] = productos.getBin();
+                
+                
+               modelo.addRow(r);
+            }
+            tabla.setModel(modelo);
+                    
+        }catch(Exception e){
+                    e.printStackTrace();
+        }
 
     }
 
+    
+   
     public void listar_todo(File p_raiz, DefaultMutableTreeNode nodo) {
         try {
             ArrayList<File> l1 = new ArrayList();
